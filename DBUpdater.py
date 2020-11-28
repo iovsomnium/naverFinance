@@ -65,6 +65,17 @@ class DBUpdater:
             self.codes[df['code'].values[idx]]=df['company'].values[idx]
         with self.conn.cursor() as curs:
             sql = "select max(last_update) from company_info"
+            curs.execute(sql)
+            rs = curs.fetchone()
+            today = datetime.today().strftime('%Y-%m-%d')
+
+            if rs[0] == None or rs[0].strftime('%Y-%m-%d') < today: # 가장 최근 업데이트 날짜를 가져올대 존재하지 않거나 오늘보다 오래된 경우 업데이트한다.
+                krx = self.read_krx_code() # 상장 기업 목록 파일을 읽어서 krx 데이터 프레임에 저장한다.
+                for idx in range(len(krx)):
+                    code = krx.code.values[idx]
+                    company = krx.company.values[idx]
+                    sql = f"replace into companyInfo (code, company, lastUpdate) values ('{code}','{company}','{today}')"
+                    curs.execute(sql) # replace into 구문을 통해 종목코드, 회사명, 오늘 날짜' 행을 DB에 저장한다.
 
     def read_naver(self, code, company, pages_to_fetch):
         """
