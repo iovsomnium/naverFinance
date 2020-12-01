@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import pymysql
 import pandas as pd
-import datetime
+from datetime import datetime
 
 class DBUpdater:
     def __init__(self):
@@ -87,6 +89,7 @@ class DBUpdater:
         """
         read naver finance change to dataframe
         """
+
     
     def replace_into_db(self, df, num, code, company):
         """
@@ -103,6 +106,6 @@ class DBUpdater:
         run naverFinance or 5pm update daily_price table
         """
 
-if __name__ = '__main__':
+if __name__ == '__main__':
     dbu = DBUpdater()
     dbu.execute_daily
