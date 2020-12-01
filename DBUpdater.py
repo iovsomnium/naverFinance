@@ -1,5 +1,6 @@
 import pymysql
 import pandas as pd
+import datetime
 
 class DBUpdater:
     def __init__(self):
