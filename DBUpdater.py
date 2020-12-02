@@ -67,7 +67,7 @@ class DBUpdater:
         for idx in range(len(df)):
             self.codes[df['code'].values[idx]]=df['company'].values[idx]
         with self.conn.cursor() as curs:
-            sql = "select max(last_update) from company_info"
+            sql = "select max(lastUpdate) from companyInfo"
             curs.execute(sql)
             rs = curs.fetchone()
             today = datetime.today().strftime('%Y-%m-%d')
@@ -77,7 +77,7 @@ class DBUpdater:
                 for idx in range(len(krx)):
                     code = krx.code.values[idx]
                     company = krx.company.values[idx]
-                    sql = f"replace into companyInfo (code, company, lastUpdate) values ('{code}','{company}','{today}')"
+                    sql =  f"replace into companyInfo (code, company, lastUpdate) values ('{code}','{company}','{today}'"
                     curs.execute(sql) # replace into 구문을 통해 종목코드, 회사명, 오늘 날짜' 행을 DB에 저장한다.
                     self.codes[code] = company
                     tmnow = datetime.now().strftime('%Y-%m-%d %H:%M')
