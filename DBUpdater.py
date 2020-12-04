@@ -55,6 +55,7 @@ class DBUpdater:
         krx = krx[['종목코드', '회사명']]
         krx = krx.rename(columns={'종목코드':'code','회사명':'company'})
         krx.code = krx.code.map('{:06d}'.format)
+        return krx
     
     def update_comp_info(self):
         """
