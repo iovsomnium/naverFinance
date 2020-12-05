@@ -109,4 +109,4 @@ class DBUpdater:
 
 if __name__ == '__main__':
     dbu = DBUpdater()
-    dbu.execute_daily
+    dbu.execute_daily()
